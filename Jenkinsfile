@@ -1,21 +1,10 @@
-pipeline {
-    agent any
-    stages {
-        stage('Clone or Fetch Repo') {
-            steps {
-                sh 'git fetch https://github.com/St00par/garage-app.git'
+pipeline{
+        agent any
+        stages{
+            stage('Run App'){
+                steps{
+                    sh "sudo docker-compose up -d --build"
+                }
             }
-        }
-        stage('Build My Jar') {
-            steps {
-                sh 'sudo apt install maven'
-                sh 'mvn clean package -e'
-            }
-        }
-        stage('Run My Jar Jar Binks') {
-            steps {
-                sh 'java -jar target/Garage-0.0.1.jar &'
-            }
-        }
-    }
+        }    
 }
