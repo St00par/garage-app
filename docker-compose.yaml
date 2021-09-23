@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+    nginx: 
+        image: garage-gateway:latest
+        build: ./gateway
+        container_name: garage-gateway
+        ports:
+          - target: 80
+            published: 80
+        # IF USING A BIND MOUNT
+        # image: nginx:alpine
+        # container_name: nginx-gateway
+        # volumes:
+        # - type: bind
+        #   source: ./gateway/nginx.conf
+        #   target: /etc/nginx/nginx.conf
+    frontend:
+        image: garage-frontend:latest
+        build: ./frontend
+        container_name: garage-frontend
+    backend:
+        image: garage-backend:latest
+        build: ./backend
+        container_name: garage-backend
+        environment:
+          MYSQL_SERVER: ${MYSQL_SERVER}
+          MYSQL_USER: ${MYSQL_USER}
+          MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+          # no need for the string values in the last 3 lines if you 
+          # set the export values by using the export command in the console
+
+
+
