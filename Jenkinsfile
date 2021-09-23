@@ -8,6 +8,7 @@ pipeline {
         }
         stage('Build My Jar') {
             steps {
+                sh 'sudo apt install maven'
                 sh 'mvn clean package -e'
             }
         }
